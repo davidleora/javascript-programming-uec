@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題3-3</title>
     <script type="text/javascript">
         function pmove(){
-        var selected = document.bkmkmenu.bkmks.selectedIndex;
-        window.open (document.bkmkmenu.bkmks.options[selected].value);
+            var selected = document.bkmkmenu.bkmks.selectedIndex;
+            if (selected > 0){
+                document.getElementById('displayImg').src = document.bkmkmenu.bkmks.options[selected].value;
+            }
+        }
+        function setInitialImage(){
+            document.bkmkmenu.bkmks.selectedIndex = Math.floor(Math.random() * 3) + 1;
+            pmove();
         }
     </script>
-    </head>
-    <body>
+</head>
+<body onload="setInitialImage()">
+    <h1>課題3-3</h1>
     <form name = "bkmkmenu">
-        <select name ="bkmks">
-        <option value = "http://www.uec.ac.jp">電気通信大学
-        <option value = "http://www.uec.ac.jp/department/ie/j/">電気通信大学大学院情報理工学研究科情報学専攻
-        <option value = "http://wlgate.ice.uec.ac.jp">電気通信大学柏原研究室
-        <option value = "http://www.google.co.jp">検索エンジン:google
-        <option value = "http://www.amazon.co.jp">amazon.co.jp
-    </select>
-    <input type = "button" value ="ページ移動" onclick = "pmove ( )">
+        <select name = "bkmks" onchange = "pmove()">
+            <option>画像集
+                <option value = "imgGreece1.jpg">画像1
+                <option value = "imgGreece2.jpg">画像2
+                <option value = "imgGreece3.jpg">画像3
+            </option>
+        </select>
     </form>
-    </body>
+    <img id="displayImg" src="" alt="Selected image will be displayed here.">
+</body>
 </html>
