@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>課題1-3</title>
+    <style>
+      table {
+          width: 50%;
+          margin: auto;
+          border-collapse: collapse;
+      }
+      th, td {
+          border: 1px solid black;
+          text-align: center;
+          padding: 8px; 
+      }
+  </style>
+</head>
+<body>
+    <h2>課題1-3</h2>
+    <label for="n">n の値を入力:</label>
+    <input type="number" id="n" value="2"><br><br>
+    <label for="m">m の値を入力:</label>
+    <input type="number" id="m" value="3"><br><br>
+    <button onclick="generateTable()">表を生成</button>
+    <script>
+      function generateTable() {
+          // 入力値を取得する
+          const n = parseInt(document.getElementById('n').value);
+          const m = parseInt(document.getElementById('m').value);
+          // 既存の表があれば削除
+          const existingTable = document.getElementById('powerTable');
+          if (existingTable) existingTable.remove();
+          
+          // 新しい表を作成
+          const table = document.createElement('table');
+          table.id = 'powerTable';
+          table.border = "1";
+          const header = table.insertRow(-1); // ヘッダー行の追加
+          const headers = ["べき数", "n", "m", "Sum"];
+          headers.forEach(text => {
+              const headerCell = document.createElement('th');
+              headerCell.innerHTML = text;
+              header.appendChild(headerCell);
+          });
+          
+          // 0から5までの各べき乗を計算して行を追加
+          for (let i = 0; i <= 5; i++) {
+              const row = table.insertRow(-1);
+              const powerCell = row.insertCell(-1);
+              powerCell.innerHTML = i;
+              const nPowerCell = row.insertCell(-1);
+              const mPowerCell = row.insertCell(-1);
+              const sumCell = row.insertCell(-1);
+              
+              const nPower = Math.pow(n, i);
+              const mPower = Math.pow(m, i);
+              const sum = nPower + mPower;
+
+              nPowerCell.innerHTML = nPower;
+              mPowerCell.innerHTML = mPower;
+              sumCell.innerHTML = sum;
+          }
+          
+          // 表をドキュメントに追加
+          document.body.appendChild(table);
+      }
+    </script>
+</body>
+</html>

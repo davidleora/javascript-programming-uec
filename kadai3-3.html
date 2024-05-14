@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <script type="text/javascript">
+        function pmove(){
+        var selected = document.bkmkmenu.bkmks.selectedIndex;
+        window.open (document.bkmkmenu.bkmks.options[selected].value);
+        }
+    </script>
+    </head>
+    <body>
+    <form name = "bkmkmenu">
+        <select name ="bkmks">
+        <option value = "http://www.uec.ac.jp">電気通信大学
+        <option value = "http://www.uec.ac.jp/department/ie/j/">電気通信大学大学院情報理工学研究科情報学専攻
+        <option value = "http://wlgate.ice.uec.ac.jp">電気通信大学柏原研究室
+        <option value = "http://www.google.co.jp">検索エンジン:google
+        <option value = "http://www.amazon.co.jp">amazon.co.jp
+    </select>
+    <input type = "button" value ="ページ移動" onclick = "pmove ( )">
+    </form>
+    </body>
+</html>

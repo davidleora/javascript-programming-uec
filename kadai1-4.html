@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題1-4</title>
+</head>
+<body>
+    <h1>問題1−4</h1>
+    <h2>画像を押すと、画像のサイズが変わります。</h2>
+    <img src="img1.png" name="myImg1" width="640" height="480" onclick="picturesClicked('myImg1', 640, 480)">
+    <script type="text/javascript">
+        function picturesClicked(imgId, width, height){
+            let img = document.images['myImg1'];
+            if (img.width > width / 2){
+                img.width = width / 2;
+                img.height = height / 2;
+            } else {
+                img.width = width;
+                img.height = height;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題1-5</title>
+</head>
+<body>
+    <h1>問題1−5</h1>
+    <h2>画像を押すと、画像のサイズが変わります。</h2>
+    <button onclick="startSlideshow()">スライドショー開始</button>
+    <button onclick="stopSlideshow()">スライドショー停止</button>
+    <br>
+    <img src="img1.png" name="myImg1" width="640" height="480" onclick="picturesClicked('myImg1', 640, 480)">
+    <script type="text/javascript">
+        let images = ["img1.png", "img2.png", "img3.png"];
+        let intervalId;
+
+        function startSlideshow(){
+            intervalId = setInterval(slideshow, 5000);
+        }
+
+        function stopSlideshow(){
+            clearInterval(intervalId);
+        }
+
+        function slideshow(){
+            let randomIndex = Math.floor(Math.random() * images.length);
+            document.images['myImg1'].src = images[randomIndex];
+        }
+    </script>
+</body>
+</html>
