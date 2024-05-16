@@ -4,21 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>問題1−2</title>
+    <style>
+        /* CSS */
+        /* body要素全体のスタイルを設定する */
+        body {
+            margin: 0;
+            height: 100%;
+            display: block;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        /* input要素のスタイルを設定する */
+        input {
+            width: 70%;
+            margin-bottom: 1em;
+        }
+        /* button要素のスタイルを設定する */
+        button {
+            width: 100px;
+            margin-top: 1em;
+        }
+    </style>
 </head>
 <body>
     <h1>問題1−2</h1>
-    <input type="string" id="str1" placeholder="文字列を入力してください">
+    <!-- 文字列入力用の input 要素 -->
+    <input type="string" id="str1" placeholder="　文字列を入力してください">
     <br>
-    <input type="string" id="str2" placeholder="キーワードを入力してください">
+    <!-- キーワード入力用の input 要素 -->
+    <input type="string" id="str2" placeholder="　キーワードを入力してください">
     <br>
+    <!-- 実行ボタンである。ボタンをクリックすると search 関数が実行される。 -->
     <button onclick="search()">実行</button>
+    <!-- 結果を表示するための div 要素 -->
     <div id="output"></div>
     <script type="text/javascript">
+        // search 関数を定義する
         function search(){
+            // 入力された文字列とキーワードを取得する
             let str1 = document.getElementById('str1').value;
             let str2 = document.getElementById('str2').value;
+            // キーワードを削除した新たな文字列を生成する
             let emptyString = str1.split(str2).join('');
+            // キーワードの個数をカウントする
             let count = str1.split(str2).length - 1;
+            // 結果を alert で表示する
             alert("キーワードの個数：" + count + "\n新たな文字列：" + emptyString);
         }
     </script>

@@ -4,34 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>問題1−1</title>
+    <style>
+        /* CSS */
+        /* body要素全体のスタイルを設定する */
+        body {
+            margin: 0;
+            height: 100%;
+            display: block;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        /* form要素のスタイルを設定する */
+        form {
+            margin-bottom: 1em;
+        }
+        /* button要素のスタイルを設定する */
+        button {
+            width: 100px;
+            margin-top: 1em;
+        }
+    </style>
 </head>
 <body>
     <h1>問題1−1</h1>
+    <!-- 開始日を入力するためのフィールド -->
     <h2>開始日を入力してください：</h1>
     <input type="number" id="year1" placeholder="Enter year"> 年
     <input type="number" id="month1" placeholder="Enter month"> 月
     <input type="number" id="day1" placeholder="Enter day"> 日
 
+    <!-- 終了日を入力するためのフィールド -->
     <h2>終了日を入力してください：</h1>
     <input type="number" id="year2" placeholder="Enter year"> 年
     <input type="number" id="month2" placeholder="Enter month"> 月
     <input type="number" id="day2" placeholder="Enter day"> 日
 
     <br><br>
+    <!-- 計算するボタン、クリックすると calculate 関数が実行される -->
     <button onclick="calculate()">Calculate</button>
 
     <script type="text/javascript">
+        // calculate() 関数の定義
         function calculate() {
-            let year1 = parseInt(document.getElementById('year1').value);
+            // 開始日の年月日を取得する変数
+            let year1 = parseInt(document.getElementById('year1').value); 
             let month1 = parseInt(document.getElementById('month1').value);
             let day1 = parseInt(document.getElementById('day1').value);
 
+            // 終了日の年月日を取得する変数
             let year2 = parseInt(document.getElementById('year2').value);
             let month2 = parseInt(document.getElementById('month2').value);
             let day2 = parseInt(document.getElementById('day2').value);
 
+            // 開始日と終了日の Date オブジェクトを作成
             let date1 = new Date(year1, month1 - 1, day1);
             let date2 = new Date(year2, month2 - 1, day2);
+
+            // 経過にっすと経過週数を計算してアラートで表示する
+            // 経過日数の計算仕方は Math.abs で date2 - date1 で経過ミリ秒を取得し、それを 1000ms * 60s * 60m * 24h で日数を計算する
+            // 経過週数の計算仕方は 経過日数を 7d で割ることで週数を計算する
             window.alert("経過日数：" + Math.floor(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24)) + " 日　" + "経過週数：" + Math.floor(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24 * 7)) + " 週です．\n")
         }
     </script>
