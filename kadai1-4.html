@@ -7,15 +7,19 @@
 </head>
 <body>
     <h1>問題1−4</h1>
-    <h2>画像を押すと、画像のサイズが変わります。</h2>
+    <h2>画像をクリックすると、画像のサイズが変わります。</h2>
+    <!-- 画像をクリックすると picturesClicked 関数が呼び出される -->
     <img src="img1.png" name="myImg1" width="640" height="480" onclick="picturesClicked('myImg1', 640, 480)">
     <script type="text/javascript">
+        // 画像がクリックされた時に呼び出される関数
         function picturesClicked(imgId, width, height){
+            // 画像がクリックされた時の処理
             let img = document.images['myImg1'];
+            // 画像の幅がウィンドウの幅の半分より大きい場合、画像の幅と高さをウィンドウの半分にする
             if (img.width > width / 2){
                 img.width = width / 2;
                 img.height = height / 2;
-            } else {
+            } else { // 画像の幅がウィンドウの幅の半分より小さい場合、画像の幅と高さを元のサイズにする
                 img.width = width;
                 img.height = height;
             }

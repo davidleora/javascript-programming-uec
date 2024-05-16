@@ -7,24 +7,36 @@
 </head>
 <body>
     <h1>問題1−5</h1>
+    <!-- スライドショーを開始するボタン。クリックするとstartSlideshow関数が呼び出される -->
     <button onclick="startSlideshow()">スライドショー開始</button>
+    <!-- スライドショーを停止するボタン。クリックするとstopSlideshow関数が呼び出される -->
     <button onclick="stopSlideshow()">スライドショー停止</button>
     <br>
+    <!-- スライドショーの画像 -->
     <img src="img1.png" name="myImg1" width="640" height="480" onclick="picturesClicked('myImg1', 640, 480)">
     <script type="text/javascript">
+        // スライドショーで表示する画像のリスト
         let images = ["img1.png", "img2.png", "img3.png"];
+        // setIntervalの戻り値を格納する変数
         let intervalId;
 
+        // スライドショーを開始する関数
         function startSlideshow(){
+            // 5秒ごとにslideshow関数を呼び出す
             intervalId = setInterval(slideshow, 5000);
         }
 
+        // スライドショーを停止する関数
         function stopSlideshow(){
+            // setIntervalをクリアする
             clearInterval(intervalId);
         }
 
+        // スライドショーの画像をランダムに切り替える関数
         function slideshow(){
+            // ランダムなインデックスを生成
             let randomIndex = Math.floor(Math.random() * images.length);
+            // 画像のsrcをランダムに選ばれた画像に更新
             document.images['myImg1'].src = images[randomIndex];
         }
     </script>
