@@ -26,13 +26,19 @@
             var n = parseInt(document.getElementById('n').value);
             var m = parseInt(document.getElementById('m').value);
 
+            /* n, mが数値でない場合、アラートを表示 */
+            if (isNaN(n) || isNaN(m)){
+                alert("n と m 両方の値を入力してください。");
+                return;
+            }
+
             /* テーブルを生成 */
             var table = "<table border='1'>";
             /* テーブルのヘッダを生成 */
             table += "<tr><th>べき数</th><th>" + n + "</th><th>" + m + "</th><th>Sum</th></tr>";
 
             /* べき数とその和を計算 */
-            for (var i = 0; i < 5; i++){
+            for (var i = 0; i <= 5; i++){
                 var powerN = Math.pow(n, i);
                 var powerM = Math.pow(m, i);
                 var sum = powerN + powerM;
