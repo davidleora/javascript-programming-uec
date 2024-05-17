@@ -1,73 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>課題2-1</title>
     <style>
-        table {
-            width: 50%;
-            margin: auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            text-align: center;
-            padding: 8px; 
-        }
+      table {
+        width: 50%;
+        margin: auto;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        text-align: center;
+        padding: 8px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <h2>課題2-1</h2>
+  <body>
+    <h2>課題 2-1</h2>
     <script type="text/javascript">
-        window.onload = function() {
-            generateTable();
+      window.onload = function () {
+        generateTable();
+      };
+
+      function generateTable() {
+        const existingTable = document.getElementById("randomizeTable");
+        if (existingTable) existingTable.remove();
+
+        const table = document.createElement("table");
+        table.id = "randomizeTable";
+        table.border = "1";
+        const header = table.insertRow(-1);
+        const headers = [
+          "No",
+          "8<sup>2</sup>の位",
+          "8<sup>1</sup>の位",
+          "8<sup>0</sup>の位",
+        ];
+
+        headers.forEach((text) => {
+          const headerCell = document.createElement("th");
+          headerCell.innerHTML = text;
+          header.appendChild(headerCell);
+        });
+
+        for (let i = 0; i <= 50; i++) {
+          const row = table.insertRow(-1);
+          const n = row.insertCell(-1);
+          const randomCell1 = row.insertCell(-1);
+          const randomCell2 = row.insertCell(-1);
+          const randomCell3 = row.insertCell(-1);
+
+          const n1 = Math.floor(Math.random() * 8);
+          const n2 = Math.floor(Math.random() * 8);
+          const n3 = Math.floor(Math.random() * 8);
+
+          n.innerHTML = i;
+          randomCell1.innerHTML = n1;
+          randomCell2.innerHTML = n2;
+          randomCell3.innerHTML = n3;
+
+          if (n1 == n2 && n2 == n3) {
+            randomCell1.style.color = "red";
+            randomCell1.style.backgroundColor = "lightgray";
+            randomCell2.style.color = "red";
+            randomCell2.style.backgroundColor = "lightgray";
+            randomCell3.style.color = "red";
+            randomCell3.style.backgroundColor = "lightgray";
+          }
         }
-
-        function generateTable() {
-            const existingTable = document.getElementById('randomizeTable');
-            if (existingTable) existingTable.remove();
-
-            const table = document.createElement('table');
-            table.id = 'randomizeTable';
-            table.border = "1";
-            const header = table.insertRow(-1);
-            const headers = ["No", "8<sup>2</sup>の位", "8<sup>1</sup>の位", "8<sup>0</sup>の位"];
-
-            headers.forEach(text => {
-                const headerCell = document.createElement('th');
-                headerCell.innerHTML = text;
-                header.appendChild(headerCell);
-            });
-
-            for (let i = 0; i <= 50; i++){
-                const row = table.insertRow(-1);
-                const n = row.insertCell(-1);
-                const randomCell1 = row.insertCell(-1);
-                const randomCell2 = row.insertCell(-1);
-                const randomCell3 = row.insertCell(-1);
-
-                const n1 = Math.floor(Math.random() * 8);
-                const n2 = Math.floor(Math.random() * 8);
-                const n3 = Math.floor(Math.random() * 8);
-
-                n.innerHTML = i;
-                randomCell1.innerHTML = n1;
-                randomCell2.innerHTML = n2;
-                randomCell3.innerHTML = n3;
-
-                if (n1 == n2 && n2 == n3){
-                    randomCell1.style.color = "red";
-                    randomCell1.style.backgroundColor = "lightgray";
-                    randomCell2.style.color = "red";
-                    randomCell2.style.backgroundColor = "lightgray";
-                    randomCell3.style.color = "red";
-                    randomCell3.style.backgroundColor = "lightgray";                
-                }
-            }
-            document.body.appendChild(table);
-        }
+        document.body.appendChild(table);
+      }
     </script>
-</body>
+  </body>
 </html>

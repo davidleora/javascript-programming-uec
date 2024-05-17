@@ -1,51 +1,56 @@
 <html>
- <head>
-  <script type="text/javascript">
-    function scrclr () {
-      for (i=0; i<document.tstform.length; i++) {
-         if (document.tstform.elements[i].type != "button") {
+  <head>
+    <script type="text/javascript">
+      function scrclr() {
+        for (i = 0; i < document.tstform.length; i++) {
+          if (document.tstform.elements[i].type != "button") {
             document.tstform.elements[i].value = "";
-            }
+          }
+        }
+        document.tstform.english.focus();
       }
-      document.tstform.english.focus ( );
-    }
-    function cave () {
+      function cave() {
         var englishScore = parseInt(document.tstform.english.value);
         var mathmaticsScore = parseInt(document.tstform.mathmatics.value);
-        document.tstform.tresult.value = (englishScore + mathmaticsScore)/2;
+        document.tstform.tresult.value = (englishScore + mathmaticsScore) / 2;
         if (document.tstform.tresult.value < 60) {
-            document.tstform.tcmnt.value = "頑張らないと単位がとれないですよ";
-                } else if (document.tstform.tresult.value < 80) {
-                    document.tstform.tcmnt.value = "もう少し頑張りましょう";
-                    } else {
-                        document.tstform.tcmnt.value = "よくできました";
-                        }
+          document.tstform.tcmnt.value = "頑張らないと単位がとれないですよ";
+        } else if (document.tstform.tresult.value < 80) {
+          document.tstform.tcmnt.value = "もう少し頑張りましょう";
+        } else {
+          document.tstform.tcmnt.value = "よくできました";
+        }
         document.tstform.englishEvaluation.value = evaluate(englishScore);
         document.tstform.mathEvaluation.value = evaluate(mathmaticsScore);
-    }
-    function evaluate(score) {
+      }
+      function evaluate(score) {
         if (score >= 90) return "秀";
         else if (score >= 80) return "優";
         else if (score >= 70) return "良";
         else if (score >= 60) return "可";
         else return "不可";
-    }
-  </script>
- </head>
+      }
+    </script>
+  </head>
 
- <body onload = "scrclr ( )">
-  <form name = "tstform">
-    英語の点数：<input type = "text" name = "english" size = 3>点
-    数学の点数：<input type = "text" name = "mathmatics" size = 3>点
-  <input type = "button" onclick = "cave()" value = "平均計算">
-  <input type = "button" onclick = "scrclr ()" value = "キャンセル">
-  <p>
-   あなたの平均点は，<input type = "text" name = "tresult" size = 3>です．
-  <br>
-   コメント：<input type = "text" name = "tcmnt" size = 60><br>
-   英語の評価：<input type = "text" name = "englishEvaluation" size = 3><br>
-   数学の評価：<input type = "text" name = "mathEvaluation" size = 3>
-  </form>
- </body>
-
+  <body onload="scrclr ( )">
+    <h2>課題 3-2</h2>
+    <form name="tstform">
+      英語の点数：<input type="text" name="english" size="3" />点
+      数学の点数：<input type="text" name="mathmatics" size="3" />点
+      <input type="button" onclick="cave()" value="平均計算" />
+      <input type="button" onclick="scrclr ()" value="キャンセル" />
+      <p>
+        あなたの平均点は，<input type="text" name="tresult" size="3" />です．
+        <br />
+        コメント：<input type="text" name="tcmnt" size="60" /><br />
+        英語の評価：<input
+          type="text"
+          name="englishEvaluation"
+          size="3"
+        /><br />
+        数学の評価：<input type="text" name="mathEvaluation" size="3" />
+      </p>
+    </form>
+  </body>
 </html>

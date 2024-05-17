@@ -1,72 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>課題2-4</title>
-</head>
-<body>
-    <h2>課題2-4</h2>
-    
+  </head>
+  <body>
+    <h2>課題 2-4</h2>
+
     <script type="text/javascript">
-        var windows = Array(5);
-        const urls = [
-            'https://www.netflix.com/jp/',
-            'https://www.yahoo.co.jp/',
-            'https://www.bing.com/',
-            'https://www.amazon.co.jp/',
-            'https://www.rakuten.co.jp/'
-        ];
+      var windows = Array(5);
+      const urls = [
+        "https://www.netflix.com/jp/",
+        "https://www.yahoo.co.jp/",
+        "https://www.bing.com/",
+        "https://www.amazon.co.jp/",
+        "https://www.rakuten.co.jp/",
+      ];
 
-        function createNewWindow(url, n){
-            windows[n] = window.open(url, `_blank${n}`, `width=400,height=600,scrollbars=yes`);
+      function createNewWindow(url, n) {
+        windows[n] = window.open(
+          url,
+          `_blank${n}`,
+          `width=400,height=600,scrollbars=yes`
+        );
+      }
+
+      function closeWindow(n) {
+        windows[n].close();
+      }
+      function generateTable() {
+        const existingTable = document.getElementById("linkTable");
+        if (existingTable) existingTable.remove();
+
+        const table = document.createElement("table");
+        table.id = "linkTable";
+        table.border = "1";
+        const header = table.insertRow(-1);
+        const headers = ["リンク番号", "リンク先", "開く", "閉じる"];
+
+        headers.forEach((text) => {
+          const headerCell = document.createElement("th");
+          headerCell.innerHTML = text;
+          header.appendChild(headerCell);
+        });
+
+        for (let i = 0; i < 5; i++) {
+          const row = table.insertRow(-1);
+          const linkNumCell = row.insertCell(-1);
+          linkNumCell.innerHTML = i + 1;
+
+          const linkCell = row.insertCell(-1);
+          const link = document.createElement("text");
+          link.href = urls[i];
+          link.innerHTML = urls[i];
+          linkCell.appendChild(link);
+
+          var openCell = row.insertCell(-1);
+          var openButton = document.createElement("button");
+          openButton.innerHTML = "開く";
+          openButton.onclick = function () {
+            createNewWindow(urls[i], i);
+          };
+          openCell.appendChild(openButton);
+
+          var closeButtonCell = row.insertCell(-1);
+          var closeButton = document.createElement("button");
+          closeButton.innerHTML = "閉じる";
+          closeButton.onclick = function () {
+            closeWindow(i);
+          };
+          closeButtonCell.appendChild(closeButton);
         }
-
-        function closeWindow(n){
-            windows[n].close();
-        }
-        function generateTable() {
-            const existingTable = document.getElementById('linkTable');
-            if (existingTable) existingTable.remove();
-            
-            const table = document.createElement('table');
-            table.id = 'linkTable';
-            table.border = "1";
-            const header = table.insertRow(-1);
-            const headers = ["リンク番号", "リンク先", "開く", "閉じる"];
-
-            headers.forEach(text => {
-                const headerCell = document.createElement('th');
-                headerCell.innerHTML = text;
-                header.appendChild(headerCell);
-            });
-
-            for (let i = 0; i < 5; i++) {
-                const row = table.insertRow(-1);
-                const linkNumCell = row.insertCell(-1);
-                linkNumCell.innerHTML = i + 1;
-
-                const linkCell = row.insertCell(-1);
-                const link = document.createElement('text');
-                link.href = urls[i];
-                link.innerHTML = urls[i];
-                linkCell.appendChild(link);
-
-                var openCell = row.insertCell(-1);
-                var openButton = document.createElement('button');
-                openButton.innerHTML = '開く';
-                openButton.onclick = function() { createNewWindow(urls[i], i); };
-                openCell.appendChild(openButton);
-
-                var closeButtonCell = row.insertCell(-1);
-                var closeButton = document.createElement('button');
-                closeButton.innerHTML = '閉じる';
-                closeButton.onclick = function() { closeWindow(i); };
-                closeButtonCell.appendChild(closeButton);
-            }
-            document.body.appendChild(table);
-        }
-        window.onload = generateTable;
+        document.body.appendChild(table);
+      }
+      window.onload = generateTable;
     </script>
-</body>
+  </body>
 </html>
