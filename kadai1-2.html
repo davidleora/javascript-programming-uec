@@ -44,6 +44,17 @@
             // 入力された文字列とキーワードを取得する
             let str1 = document.getElementById('str1').value;
             let str2 = document.getElementById('str2').value;
+
+            // 文字列またはキーワードが入力されていない場合、アラートを表示して関数を終了する
+            if (str1 === "") {
+                alert("文字列が入力されていません。");
+                return;
+            }
+            if (str2 === "") {
+                alert("キーワードが入力されていません。");
+                return;
+            }
+
             // キーワードを削除した新たな文字列を生成する
             let emptyString = str1.split(str2).join('');
             // キーワードの個数をカウントする
