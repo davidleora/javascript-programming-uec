@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>課題1-4</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>問題1−4</h1>
+    <h1>問題 1−4</h1>
     <h2>画像をクリックすると、画像のサイズが変わります。</h2>
+    <br>
     <!-- 画像をクリックすると picturesClicked 関数が呼び出される -->
     <img src="img1.png" name="myImg1" width="640" height="480" onclick="picturesClicked('myImg1', 640, 480)">
     <script type="text/javascript">
