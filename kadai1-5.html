@@ -4,9 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>課題1-5</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+        }
+    </style>
 </head>
 <body>
-    <h1>問題1−5</h1>
+    <h1>問題 1−5</h1>
     <!-- スライドショーを開始するボタン。クリックするとstartSlideshow関数が呼び出される -->
     <button onclick="startSlideshow()">スライドショー開始</button>
     <!-- スライドショーを停止するボタン。クリックするとstopSlideshow関数が呼び出される -->
@@ -14,30 +28,57 @@
     <br>
     <!-- スライドショーの画像 -->
     <img src="img1.png" name="myImg1" width="640" height="480" onclick="picturesClicked('myImg1', 640, 480)">
+    <p id="interval"></p>
     <script type="text/javascript">
         // スライドショーで表示する画像のリスト
         let images = ["img1.png", "img2.png", "img3.png"];
         // setIntervalの戻り値を格納する変数
         let intervalId;
+        let countIntervalId;
+        // インターバルを数える
+        let count = 0;
 
         // スライドショーを開始する関数
         function startSlideshow(){
             // 5秒ごとにslideshow関数を呼び出す
             intervalId = setInterval(slideshow, 5000);
+            countIntervalId = setInterval(updateCount, 1000);
         }
 
         // スライドショーを停止する関数
         function stopSlideshow(){
             // setIntervalをクリアする
             clearInterval(intervalId);
+            clearInterval(countIntervalId);
+            count = 0;
         }
+
+        let currentIndex = 0;
 
         // スライドショーの画像をランダムに切り替える関数
         function slideshow(){
-            // ランダムなインデックスを生成
-            let randomIndex = Math.floor(Math.random() * images.length);
+            // 新しいインデックスを生成
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * images.length);
+            } while(newIndex === currentIndex);
+
+            // 新しいインデックスを現在のインデックスに更新
+            currentIndex = newIndex;
+
             // 画像のsrcをランダムに選ばれた画像に更新
-            document.images['myImg1'].src = images[randomIndex];
+            document.images['myImg1'].src = images[currentIndex];
+        }
+
+        // インターバルを更新する関数
+        function updateCount() {
+            if(count < 4) { // 5秒ごとにインターバルを更新
+                document.getElementById("interval").innerText = ++count;
+            }
+            else { // インターバルが5になったら0に戻す
+                document.getElementById("interval").innerText = 5;
+                count = 0;
+            }
         }
     </script>
 </body>
