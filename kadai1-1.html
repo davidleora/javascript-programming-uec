@@ -56,9 +56,35 @@
             let month2 = parseInt(document.getElementById('month2').value);
             let day2 = parseInt(document.getElementById('day2').value);
 
+            // 開始日または終了日が入力されていない場合、アラートを表示して関数を終了する
+            if (isNaN(year1) || isNaN(month1) || isNaN(day1)) {
+                alert("開始日が入力されていません。");
+                return;
+            }
+            if (isNaN(year2) || isNaN(month2) || isNaN(day2)) {
+                alert("終了日が入力されていません。");
+                return;
+            }
+            
             // 開始日と終了日の Date オブジェクトを作成
             let date1 = new Date(year1, month1 - 1, day1);
             let date2 = new Date(year2, month2 - 1, day2);
+
+            // 開始日が終了日よりも後である場合、アラートを表示して関数を終了する
+            if (date1 > date2) {
+                alert("開始日は終了日より早くなければなりません。");
+                return;
+            }
+
+            // 日付の妥当性をチェックする
+            if (date1.getMonth() + 1 != month1 || date1.getDate() != day1) {
+                window.alert("開始日が無効です．");
+                return;
+            }
+            if (date2.getMonth() + 1 != month2 || date2.getDate() != day2) {
+                window.alert("終了日が無効です．");
+                return;
+            }
 
             // 経過にっすと経過週数を計算してアラートで表示する
             // 経過日数の計算仕方は Math.abs で date2 - date1 で経過ミリ秒を取得し、それを 1000ms * 60s * 60m * 24h で日数を計算する
