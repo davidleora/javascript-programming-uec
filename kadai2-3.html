@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題 2-3</title>
+
+    <style>
+        #movingImage {
+            position: absolute; /* 画像の位置を絶対指定する */
+            left: 0px; /* 画像の左端を 0px にする */
+            top: 50px; /* 画像の上端を 50px にする */
+        }
+        h1 {
+            font-size: px;
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>課題 2-3</h1>
+    <!-- 画像の初期位置を指定する -->
+    <img id="movingImage" src="img1.png">
+    <script type="text/javascript">
+        let img = document.getElementById("movingImage");
+        img.style.left = "0px";
+        img.style.top = "50px";
+
+        // 画像を右方向に 10px ずつ移動する関数
+        function moveImage() {
+            let left = parseInt(img.style.left); // 現在の left 値を取得し、整数に変換する
+            if (left <= 400) {
+                img.style.left = (left + 10) + "px"; // 10px 移動する
+            } else {
+                clearInterval(intervalId); // インターバルを停止する
+            }
+        }
+
+        let intervalId = setInterval(moveImage, 100); // 0.1秒（100ms）ごとに moveImage 関数を実行する
+    </script>
+</body>
+</html>
