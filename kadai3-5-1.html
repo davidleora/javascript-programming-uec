@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題 3-5-1</title>
+</head>
+<body>
+    <h1>ブックマーク集</h1>
+    <select id="bookmarks" onchange="openBookmark()">
+        <option value="">ブックマークを選択</option>
+        <option value="https://www.google.com">Google</option>
+        <option value="https://www.yahoo.com">Yahoo</option>
+        <option value="https://www.wikipedia.org">Wikipedia</option>
+        <option value="https://www.github.com">GitHub</option>
+        <option value="https://www.reddit.com">Reddit</option>
+    </select>
+    <button onclick="window.close()">ページを閉じる</button>
+
+    <script>
+        function openBookmark() {
+            const select = document.getElementById('bookmarks');
+            const url = select.value;
+            if (url) {
+                window.location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>

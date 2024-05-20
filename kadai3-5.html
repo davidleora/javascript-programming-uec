@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>課題 3-5</title>
 </head>
 <body>
-    
+    <h1>ホームページ</h1>
+    <select id="actions" onchange="handleSelectChange()">
+        <option value="">選択してください</option>
+        <option value="kadai3-5-1.html">ブックマーク集</option>
+        <option value="kadai3-5-2.html">2024年の残り時間</option>
+        <option value="kadai3-5-3.html">背景色自動変更</option>
+        <option value="kadai3-5-4.html">YouTubeの新着ミュージックビデオ</option>
+    </select>
+    <button onclick="openSelectedPage()">ホームページを開く</button>
+
+    <script>
+        function openSelectedPage() {
+            const select = document.getElementById('actions');
+            const value = select.value;
+            if (value) {
+                window.open(value, '_blank', 'width=600,height=400');
+                select.value = '';
+            } else {
+                alert('ページを選択してください。');
+            }
+        }
+    </script>
 </body>
 </html>

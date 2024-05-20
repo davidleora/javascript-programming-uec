@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題 3-5-3</title>
+</head>
+<body>
+    <h1>背景色自動変更</h1>
+    <button onclick="window.close()">ページを閉じる</button>
+
+    <script>
+        function changeBackgroundColor() {
+            const colors = ['red', 'green', 'blue', 'yellow', 'purple'];
+            document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        setInterval(changeBackgroundColor, 3000);
+    </script>
+</body>
+</html>
