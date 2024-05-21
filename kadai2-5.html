@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題 2-5</title>
+    <style>
+        body {
+            min-height: 3000px; /* ページの最小高さを設定する */
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9; /* 背景色を設定 */
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .photo-container {
+            margin-bottom: 40px;
+            padding: 10px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .photo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>クレタ島の風景</h1>
+    <div class="container">
+        <p>写真ごとに上下スクロール</p>
+
+        <div class="photo-container" id="photo1">
+            <img id="img1" src="imgGreece1.jpg"><br>
+            <button onclick="scrollToNextPhoto('img1')">The next photo</button><br>
+        </div>
+
+        <div class="photo-container" id="photo2">
+            <img id="img2" src="imgGreece2.jpg"><br>
+            <button onclick="scrollToPreviousPhoto('img2')">The previous photo</button>
+            <button onclick="scrollToNextPhoto('img2')">The next photo</button><br>
+        </div>
+
+        <div class="photo-container" id="photo3">
+            <img id="img3" src="imgGreece3.jpg"><br>
+            <button onclick="scrollToPreviousPhoto('img3')">The previous photo</button><br>
+        </div>
+            <button onclick="scrollToTop()">Top</button><br>
+    </div>
+
+    <script type="text/javascript">
+        // 指定された画像にスクロールする関数
+        function scrollToElement(elementId) {
+            let element = document.getElementById(elementId);
+            let rect = element.getBoundingClientRect();
+            let targetY = window.scrollY + rect.top;
+
+            let scrollInterval = setInterval(() => {
+                let currentY = window.scrollY;
+                if (currentY < targetY) {
+                    window.scrollBy(0, 1);
+                    if (window.scrollY >= targetY) {
+                        clearInterval(scrollInterval);
+                    }
+                } else if (currentY > targetY) {
+                    window.scrollBy(0, -1);
+                    if (window.scrollY <= targetY) {
+                        clearInterval(scrollInterval);
+                    }
+                } else {
+                    clearInterval(scrollInterval);
+                }
+            }, 1);
+        }
+
+        // 次の写真にスクロールする関数
+        function scrollToNextPhoto(currentId) {
+            let nextId = currentId === 'img1' ? 'img2' : 'img3';
+            scrollToElement(nextId);
+        }
+
+        // 前の写真にスクロールする関数
+        function scrollToPreviousPhoto(currentId) {
+            let prevId = currentId === 'img3' ? 'img2' : 'img1';
+            scrollToElement(prevId);
+        }
+
+        // ページの一番上にスクロールする関数
+        function scrollToTop() {
+            let scrollInterval = setInterval(() => {
+                let currentY = window.scrollY;
+                if (currentY > 0) {
+                    window.scrollBy(0, -1);
+                } else {
+                    clearInterval(scrollInterval);
+                }
+            }, 1);
+        }
+    </script>
+</body>
+</html>

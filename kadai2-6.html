@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ユーザ情報</title>
+</head>
+<body>
+    <div id="content">
+        <!-- コンテンツがここに表示されます -->
+    </div>
+    <script type="text/javascript">
+        // クッキーを取得する関数
+        function getCookie(name) {
+            let value = "; " + document.cookie;
+            let parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+
+        // クッキーを設定する関数
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        // コンテンツを表示する関数
+        function displayContent() {
+            let content = document.getElementById('content');
+            let name = getCookie('name');
+            let hobby = getCookie('hobby');
+            let visitCount = getCookie('visitCount');
+
+            if (!name || !hobby) {
+                // 初回訪問
+                name = prompt("お名前を入力してください:");
+                hobby = prompt("趣味を入力してください:");
+                visitCount = 1;
+                setCookie('name', name, 365);
+                setCookie('hobby', hobby, 365);
+                setCookie('visitCount', visitCount, 365);
+                content.innerHTML = `<h1>初めての訪問ありがとうございます、${name}さん。</h1><p>趣味: ${hobby}</p>`;
+            } else {
+                // 2回目以降の訪問
+                visitCount = parseInt(visitCount) + 1;
+                setCookie('visitCount', visitCount, 365);
+                content.innerHTML = `<h1>お帰りなさい、${name}さん。</h1><p>趣味: ${hobby}</p><p>訪問回数: ${visitCount}</p>`;
+
+                let changeHobby = confirm("趣味を変更しますか？");
+                if (changeHobby) {
+                    hobby = prompt("新しい趣味を入力してください:");
+                    setCookie('hobby', hobby, 365);
+                    content.innerHTML += `<p>趣味が更新されました: ${hobby}</p>`;
+                }
+            }
+        }
+
+        // ページが読み込まれた際にコンテンツを表示
+        window.onload = function() {
+            displayContent();
+        };
+
+    </script>
+</body>
+</html>

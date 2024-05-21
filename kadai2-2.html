@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題 2-2</title>
+    <!-- Bootstrap CSSをインクルード、JavaScriptを勉強するので、これを機にCSSやそのフレームワークを少し勉強したいです。 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 独自のスタイル */
+        .color-box {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid black;
+            display: inline-block;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        h1 {
+            font-size: 32px;
+            color: #333;
+            margin: 20px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        let intervalId = null; // インターバルIDを保持する変数
+        const colors = ["red", "blue", "yellow"]; // 変更可能な色の配列
+
+        // 現在の色と異なるランダムな色を取得する関数
+        function getRandomColor(currentColor) {
+            let newColor;
+            do { // 新しい色が現在の色と異なるまで繰り返す
+                newColor = colors[Math.floor(Math.random() * colors.length)];
+            } while (newColor === currentColor);
+            return newColor;
+        }
+
+        // 全ての .color-box クラスの要素の色を変更する関数
+        function setcolor() {
+            // 全ての .color-box 要素を取得する
+            // ドキュメント内の全ての要素を選択するメソッドです。querySelectorAll() メソッドは、指定されたセレクターに一致するドキュメント内の要素のリストを返します。
+            // 他の選択メソッドは、getElementById()、getElementsByClassName()、getElementsByTagName()、querySelector() などがあります。（復習用です）
+            const divs = document.querySelectorAll(".color-box");
+            // 各要素に対して色をランダムに変更する
+            divs.forEach(div => {
+                div.style.color = getRandomColor(div.style.color);
+            });
+        }
+
+        // 色の変更を１秒ごとに開始する関数
+        function startColorChange() {
+            if (intervalId === null) {
+                intervalId = setInterval(setcolor, 1000);
+            }
+        }
+
+        // 色の変更を停止する関数
+        function stopColorChange() {
+            if (intervalId !== null) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+        }
+
+        // ページが読み込まれたときに色の変更を開始する
+        window.onload = startColorChange;
+    </script>
+
+</head>
+
+<body>
+    <div class="container text-center">
+        <!-- ページの見出し -->
+        <h1>課題 2-2</h1>
+        <!-- 色が変わるテキストボックス -->
+        <div class="color-box">このテキストの色が変わります。</div>
+        <div class="color-box">もう一つのテキストも変わります。</div>
+        <!-- ボタンを中央揃えにするコンテナ -->
+        <div class="button-container">
+            <!-- 色変更開始ボタン -->
+            <button class="btn btn-primary" onclick="startColorChange()">色変更開始</button>
+            <!-- 色変更停止ボタン -->
+            <button class="btn btn-primary" onclick="stopColorChange()">色変更停止</button>
+        </div>
+    </div>
+</body>
+</html>
