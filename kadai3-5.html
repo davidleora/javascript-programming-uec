@@ -4,26 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>課題 3-5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* フォントを設定する */
+            background-color: #f4f4f9; /* 背景色を設定する */
+            padding: 20px; /* 余白を設定する */
+            text-align: center; /* テキストを中央揃えに設定 */
+        }
+        h1 {
+            color: #333; /* 見出しの色を設定 */
+        }
+        select {
+            padding: 10px; /* 内側の余白を設定する */
+            font-size: 16px; /* フォントサイズを設定する */
+            margin: 20px 0; /* 上下の余白を設定する */
+        }
+        button {
+            padding: 10px 20px; /* パディングを設定する */
+            font-size: 16px; /* フォントサイズを設定する */
+            color: #fff; /* テキスト色を白に設定する */
+            background-color: #007BFF; /* 背景色を設定する */
+            border: none; /* 枠線を設定しない */
+            border-radius: 4px; /* 角を丸める */
+            cursor: pointer; /* カーソルをポインターに設定する */
+        }
+        button:hover {
+            background-color: #0056b3; /* ホバー時の背景色を設定する */
+        }
+    </style>
 </head>
 <body>
     <h1>ホームページ</h1>
+    <!-- ページ選択ドロップダウンメニュー -->
     <select id="actions" onchange="handleSelectChange()">
         <option value="">選択してください</option>
         <option value="kadai3-5-1.html">ブックマーク集</option>
         <option value="kadai3-5-2.html">2024年の残り時間</option>
         <option value="kadai3-5-3.html">背景色自動変更</option>
-        <option value="kadai3-5-4.html">YouTubeの新着ミュージックビデオ</option> <!-- Youtube API を使っているのでGitHubに公開しません。 -->
+        <option value="kadai3-5-4.html">YouTubeの新着ミュージックビデオ</option> <!-- Youtube API を使っているのでGitHubに公開しない。 -->
     </select>
-    <button onclick="openSelectedPage()">ホームページを開く</button>
+    <!-- ページを開くボタン -->
+    <button onclick="openSelectedPage()">ページを開く</button>
 
     <script>
+        // 選択されたページを新しいウィンドウで開く関数
         function openSelectedPage() {
-            const select = document.getElementById('actions');
-            const value = select.value;
+            const select = document.getElementById('actions'); // ドロップダウンメニューを取得する
+            const value = select.value; // 選択されたオプションの値を取得する
             if (value) {
+                // 新しいウィンドウで選択されたページを開く
                 window.open(value, '_blank', 'width=600,height=400');
-                select.value = '';
+                select.value = ''; // ドロップダウンメニューの選択をリセットする
             } else {
+                // ページが選択されていない場合はアラートを表示する
                 alert('ページを選択してください。');
             }
         }

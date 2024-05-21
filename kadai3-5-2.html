@@ -1,30 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>課題 3-5-2</title>
-</head>
-<body>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif; /* フォントを設定する */
+      background-color: #f4f4f9; /* 背景色を設定する */
+      text-align: center; /* テキストを中央揃えに設定する */
+      padding: 20px; /* 余白を設定する */
+    }
+    h1 {
+      color: #333; /* 見出しの色を設定 */
+    }
+    #countdown {
+      font-size: 24px; /* フォントサイズを設定する */
+      margin: 20px 0; /* 上下の余白を設定する */
+    }
+    button {
+      padding: 10px 20px; /* パディングを設定する */
+      font-size: 16px; /* フォントサイズを設定する */
+      color: #fff; /* テキスト色を白に設定する */
+      background-color: #007bff; /* 背景色を設定する */
+      border: none; /* 枠線を設定しない */
+      border-radius: 4px; /* 角を丸める */
+      cursor: pointer; /* カーソルをポインターに設定する */
+    }
+    button:hover {
+      background-color: #0056b3; /* ホバー時の背景色を設定する */
+    }
+  </style>
+  <body>
     <h1>2024年の残り時間</h1>
-    <div id="countdown"></div>
-    <button onclick="window.close()">ページを閉じる</button>
+    <div id="countdown"></div> <!-- カウントダウン表示エリア -->
+    <button onclick="window.close()">ページを閉じる</button> <!-- ページを閉じるボタン -->
 
     <script>
-        function updateCountdown() {
-            const now = new Date();
-            const endOfYear = new Date('2024-12-31T23:59:59');
-            const diff = endOfYear - now;
+      // 2024年の残り時間を表示する関数
+      function updateCountdown() {
+        const now = new Date(); // 現在時刻を取得する
+        const endOfYear = new Date("2024-12-31T23:59:59"); // 2024年の年末時刻を取得する
+        const diff = endOfYear - now; // 年末時刻までの残り時間を計算する
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24)); // 日数を計算する
+        const hours = Math.floor( // 残り時間から日数を引いて時間数を計算する
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); // 残り時間から時間数を引いて分数を計算する
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000); // 残り時間から分数を引いて秒数を計算する
 
-            document.getElementById('countdown').innerText = `${days}日 ${hours}時間 ${minutes}分 ${seconds}秒`;
-        }
-
-        setInterval(updateCountdown, 1000);
+        document.getElementById( // カウントダウン表示エリアに残り時間を表示する
+          "countdown"
+        ).innerText = `${days}日 ${hours}時間 ${minutes}分 ${seconds}秒`;
+      }
+      setInterval(updateCountdown, 1000); // 1秒ごとに残り時間を更新する
     </script>
-</body>
+  </body>
 </html>

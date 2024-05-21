@@ -1,18 +1,73 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>課題 3-2</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif; /* フォントを設定する */
+          background-color: #f4f4f9; /* 背景色を設定する */
+          padding: 20px; /* 余白を設定する */
+      }
+      .container {
+          max-width: 600px; /* コンテナの最大幅を設定する */
+          margin: 0 auto; /* コンテナを中央に配置する */
+          padding: 20px; /* 内側の余白を設定する */
+          background: #fff; /* 背景色を設定する */
+          border-radius: 8px; /* 角を丸める */
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      input[type="text"] {
+          width: 50px; /* 入力フィールドの幅を設定する */
+          padding: 5px; /* 内側の余白を設定する */
+          margin: 5px 0; /* 上下の余白を設定する */
+          border: 1px solid #ccc; /* 境界線の色を設定する */
+          border-radius: 4px; /* 角を丸める */
+      }
+      button {
+          padding: 10px 20px; /* パディングを設定する */
+          font-size: 16px; /* フォントサイズを設定する */
+          color: #fff; /* テキスト色を白に設定する */
+          background-color: #007BFF; /* 背景色を設定する */
+          border: none; /* 境界線をなしに設定する */
+          border-radius: 4px; /* 角を丸める */
+          cursor: pointer; /* カーソルをポインターに設定する */
+      }
+      button:hover {
+          background-color: #0056b3; /* ホバー時の背景色を設定する */
+      }
+    </style>
+
     <script type="text/javascript">
+      // フォームのすべての入力フィールドをクリアし、英語の入力フィールドにフォーカスを当てる関数
       function scrclr() {
         for (i = 0; i < document.tstform.length; i++) {
+          // ボタン以外のすべての入力フィールドの値をクリア
           if (document.tstform.elements[i].type != "button") {
             document.tstform.elements[i].value = "";
           }
         }
+        // 英語の入力フィールドにフォーカスを当てる
         document.tstform.english.focus();
       }
+
+      // 平均点を計算し、コメントを表示する関数
       function cave() {
+        // 英語と数学の点数を取得し、整数に変換する
         var englishScore = parseInt(document.tstform.english.value);
         var mathmaticsScore = parseInt(document.tstform.mathmatics.value);
+
+        // 点数が100点以下であるかをチェックする
+        if (englishScore > 100 || mathmaticsScore > 100) {
+          alert("点数は100点以下で入力してください");
+          return;
+        }
+
+        // 平均点を計算し、結果を表示する
         document.tstform.tresult.value = (englishScore + mathmaticsScore) / 2;
+
+        // コメントを表示する
         if (document.tstform.tresult.value < 60) {
           document.tstform.tcmnt.value = "頑張らないと単位がとれないですよ";
         } else if (document.tstform.tresult.value < 80) {
@@ -20,9 +75,13 @@
         } else {
           document.tstform.tcmnt.value = "よくできました";
         }
+
+        // 英語と数学の評価を表示する
         document.tstform.englishEvaluation.value = evaluate(englishScore);
         document.tstform.mathEvaluation.value = evaluate(mathmaticsScore);
       }
+
+      // 点数に応じて評価を返す関数
       function evaluate(score) {
         if (score >= 90) return "秀";
         else if (score >= 80) return "優";
@@ -35,20 +94,19 @@
 
   <body onload="scrclr ( )">
     <h2>課題 3-2</h2>
+    <!-- テスト入力フォーム -->
     <form name="tstform">
-      英語の点数：<input type="text" name="english" size="3" />点
-      数学の点数：<input type="text" name="mathmatics" size="3" />点
-      <input type="button" onclick="cave()" value="平均計算" />
-      <input type="button" onclick="scrclr ()" value="キャンセル" />
+      英語の点数：<input type="text" name="english" size="3" />点 <!-- 英語の点数を入力するフィールド -->
+      数学の点数：<input type="text" name="mathmatics" size="3" />点 <!-- 数学の点数を入力するフィールド -->
+      <input type="button" onclick="cave()" value="平均計算" /> <!-- 平均点を計算するボタン -->
+      <input type="button" onclick="scrclr ()" value="キャンセル" /> <!-- 入力フィールドをクリアするボタン -->
       <p>
+        <!-- 平均点とコメントを表示するフィールド -->
         あなたの平均点は，<input type="text" name="tresult" size="3" />です．
         <br />
-        コメント：<input type="text" name="tcmnt" size="60" /><br />
-        英語の評価：<input
-          type="text"
-          name="englishEvaluation"
-          size="3"
-        /><br />
+        コメント：<textarea name="tcmnt"></textarea><br />
+        <!-- 英語と数学の評価を表示するフィールド -->
+        英語の評価：<input type="text" name="englishEvaluation" size="3" /><br />
         数学の評価：<input type="text" name="mathEvaluation" size="3" />
       </p>
     </form>

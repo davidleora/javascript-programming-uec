@@ -1,21 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>課題 3-5-3</title>
-</head>
-<body>
+    <style>
+      body {
+        font-family: Arial, sans-serif; /* フォントを設定する */
+        background-color: #f4f4f9; /* 背景色を設定する */
+        text-align: center; /* テキストを中央揃えに設定する */
+        padding: 20px; /* 余白を設定する */
+      }
+      h1 {
+        color: #333; /* 見出しの色を設定 */
+      }
+      button {
+        padding: 10px 20px; /* パディングを設定する */
+        font-size: 16px; /* フォントサイズを設定する */
+        color: #fff; /* テキスト色を白に設定する */
+        background-color: #007bff; /* 背景色を設定する */
+        border: none; /* 枠線を設定しない */
+        border-radius: 4px; /* 角を丸める */
+        cursor: pointer; /* カーソルをポインターに設定する */
+      }
+      button:hover {
+        background-color: #0056b3; /* ホバー時の背景色を設定する */
+      }
+    </style>
+  </head>
+  <body>
     <h1>背景色自動変更</h1>
-    <button onclick="window.close()">ページを閉じる</button>
+    <button onclick="window.close()">ページを閉じる</button> <!-- ページを閉じるボタン -->
 
     <script>
-        function changeBackgroundColor() {
-            const colors = ['red', 'green', 'blue', 'yellow', 'purple'];
-            document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        }
+      // 背景色をランダムに変更する関数
+      function changeBackgroundColor() {
+        const colors = ["red", "green", "blue", "yellow", "purple"]; // 色の配列
+        document.body.style.backgroundColor = 
+          colors[Math.floor(Math.random() * colors.length)]; // 背景色をランダムに変更する
+      }
 
-        setInterval(changeBackgroundColor, 3000);
+      setInterval(changeBackgroundColor, 3000); // 3秒ごとに背景色を変更する
     </script>
-</body>
+  </body>
 </html>

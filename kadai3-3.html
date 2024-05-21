@@ -1,33 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>課題3-3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* フォントを設定する */
+            background-color: #f4f4f9; /* 背景色を設定する */
+            text-align: center; /* テキストを中央揃えに設定する */
+            padding: 20px; /* 余白を設定する */
+        }
+        h1 {
+            color: #333; /* 見出しの色を設定する */
+        }
+        select {
+            padding: 10px; /* 内側の余白を設定する */
+            font-size: 16px; /* フォントサイズを設定する */
+            margin: 20px 0; /* 上下の余白を設定する */
+        }
+        img {
+            max-width: 100%; /* 画像の最大幅を設定する */
+            height: auto; /* 画像の高さを自動調整する */
+            margin-top: 20px; /* 上側の余白を設定する */
+        }
+    </style>
+
     <script type="text/javascript">
-        function pmove(){
-            var selected = document.bkmkmenu.bkmks.selectedIndex;
-            if (selected > 0){
-                document.getElementById('displayImg').src = document.bkmkmenu.bkmks.options[selected].value;
-            }
+      // 選択した画像を表示する関数  
+      function pmove() {
+        var selected = document.bkmkmenu.bkmks.selectedIndex; // 選択されたインデックスを取得する
+        if (selected > 0) {
+          document.getElementById("displayImg").src =
+            document.bkmkmenu.bkmks.options[selected].value; // 選択された画像を表示する
         }
-        function setInitialImage(){
-            document.bkmkmenu.bkmks.selectedIndex = Math.floor(Math.random() * 3) + 1;
-            pmove();
-        }
+      }
+
+      // ページ読み込み時に初期画像を設定する関数
+      function setInitialImage() {
+        document.bkmkmenu.bkmks.selectedIndex =
+          Math.floor(Math.random() * 3) + 1; // 1 ～ 3 の乱数を生成し、選択されたインデックスを設定する
+        pmove(); // 選択した画像を表示する
+      }
     </script>
-</head>
-<body onload="setInitialImage()">
+  </head>
+  <body onload="setInitialImage()">
     <h1>課題3-3</h1>
-    <form name = "bkmkmenu">
-        <select name = "bkmks" onchange = "pmove()">
-            <option>画像集
-                <option value = "imgGreece1.jpg">画像1
-                <option value = "imgGreece2.jpg">画像2
-                <option value = "imgGreece3.jpg">画像3
-            </option>
-        </select>
+    <p>画像を選択してください。</p>
+    <!-- 画像選択メニュー -->
+    <form name="bkmkmenu">
+      <select name="bkmks" onchange="pmove()">
+        <option>画像集</option>
+        <option value="imgGreece1.jpg">画像1</option>
+        <option value="imgGreece2.jpg">画像2</option>
+        <option value="imgGreece3.jpg">画像3</option>
+      </select>
     </form>
-    <img id="displayImg" src="" alt="Selected image will be displayed here.">
-</body>
+    <!-- 選択された画像を表示するための要素 -->
+    <img id="displayImg" src="" alt="Selected image will be displayed here." />
+  </body>
 </html>

@@ -1,9 +1,49 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題 3-4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* フォントを設定する */
+            background-color: #f4f4f9; /* 背景色を設定する */
+            padding: 20px; /* 余白を設定する */
+            text-align: center; /* テキストを中央揃えに設定する */
+        }
+        h2 {
+            color: #333; /* 見出しの色を設定する */
+        }
+        form {
+            margin-bottom: 20px; /* 下側の余白を設定する */
+        }
+        input[type="radio"] {
+            margin: 10px; /* 上下左右の余白を設定する */
+        }
+        input[type="button"] {
+            padding: 10px 20px; /* パディングを設定する */
+            font-size: 16px; /* フォントサイズを設定する */
+            color: #fff; /* テキスト色を白に設定する */
+            background-color: #007BFF; /* 背景色を設定する */
+            border: none; /* 枠線を設定しない */
+            border-radius: 4px; /* 角を丸める */
+            cursor: pointer; /* カーソルをポインターに設定する */
+        }
+        input[type="button"]:hover {
+            background-color: #0056b3; /* ホバー時の背景色を設定する */
+        }
+        p {
+            font-size: 24px; /* テキストのフォントサイズを設定する */
+            font-weight: bold; /* テキストを太字に設定する */
+        }
+    </style>
     <script type="text/javascript">
+      // 選択されたラジオボタンの色にテキストの色を変更する関数
       function pmove() {
         for (i = 0; i < document.bkmkmenu.bkmks.length; i++) {
+          // チェックされているラジオボタンを取得し、テキストの色を変更する
           if (document.bkmkmenu.elements[i].checked) {
+            // 対象テキストの色を変更する
             document.getElementById("targetText").style.color =
               document.bkmkmenu.elements[i].value;
           }
@@ -13,14 +53,18 @@
   </head>
   <body>
     <h2>課題 3-4</h2>
+    <p>文字色を選択してください。</p>
+    <!-- ラジオボタンメニュー -->
     <form name="bkmkmenu">
       <input type="radio" name="bkmks" value="red" />赤<br />
       <input type="radio" name="bkmks" value="blue" />青<br />
       <input type="radio" name="bkmks" value="yellow" />黄<br />
       <input type="radio" name="bkmks" value="black" />黒<br />
       <input type="radio" name="bkmks" value="green" />緑<br />
+      <!-- 文字色を変更するボタン -->
       <input type="button" value="文字色変更" onclick="pmove ()" />
     </form>
+    <!-- 選択された文字色を表示するための要素 -->
     <p id="targetText">「■■■■■」</p>
   </body>
 </html>

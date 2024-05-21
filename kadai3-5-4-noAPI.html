@@ -1,42 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif; /* フォントを設定する */
+      background-color: #f4f4f9; /* 背景色を設定する */
+      text-align: center; /* テキストを中央揃えに設定する */
+      padding: 20px; /* 余白を設定する */
+    }
+    h1 {
+      color: #333; /* 見出しの色を設定する */
+    }
+    #top-songs div {
+      margin: 20px 0; /* 上下の余白を設定する */
+    }
+    button {
+      padding: 10px 20px; /* パディングを設定する */
+      font-size: 16px; /* フォントサイズを設定する */
+      color: #fff; /* テキスト色を白に設定する */
+      background-color: #007bff; /* 背景色を設定する */
+      border: none; /* 枠線を設定しない */
+      border-radius: 4px; /* 角を丸める */
+      cursor: pointer; /* カーソルをポインターに設定する */
+    }
+    button:hover {
+      background-color: #0056b3; /* ホバー時の背景色を設定する */
+    }
+  </style>
+  <body>
     <h1>今日の新着ミュージックビデオ</h1>
     <div id="top-songs"></div>
-    <button onclick="window.close()">ページを閉じる</button>
+    <button onclick="window.close()">ページを閉じる</button> <!-- ページを閉じるボタン -->
 
     <script>
-        async function fetchTopSongs() {
-            const apiKey = 'INPUT YOUR API KEY HERE';
-            const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=JP&videoCategoryId=10&maxResults=5&key=${apiKey}`;
+      // YouTube Data API を使って日本のトップソングを取得する関数
+      async function fetchTopSongs() {
+        const apiKey = "INPUT YOUR API KEY HERE"; // YouTube Data API のAPIキー
+        const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=JP&videoCategoryId=10&maxResults=5&key=${apiKey}`; // YouTube Data API のエンドポイント
 
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
+        // YouTube Data API からデータを取得する
+        try {
+          const response = await fetch(apiUrl); // APIエンドポイントにリクエストを送信する
+          const data = await response.json(); // レスポンスをJSON形式に変換する
 
-                const topSongsDiv = document.getElementById('top-songs');
-                topSongsDiv.innerHTML = '';
+          const topSongsDiv = document.getElementById("top-songs"); // トップソング表示エリアを取得する
+          topSongsDiv.innerHTML = ""; // トップソング表示エリアをリセットする
 
-                data.items.forEach(item => {
-                    const songDiv = document.createElement('div');
-                    songDiv.innerHTML = `
-                        <h2>${item.snippet.title}</h2>
+            // 取得したデータからトップソングを表示する
+          data.items.forEach((item) => {
+            const songDiv = document.createElement("div"); // トップソングの要素を作成する
+            // トップソングの情報を表示する
+            // タイトル、アーティスト、サムネイル画像を表示する
+            songDiv.innerHTML = `
+                        <h2>${item.snippet.title}</h2> 
                         <p>アーティスト: ${item.snippet.channelTitle}</p>
                         <img src="${item.snippet.thumbnails.default.url}" alt="${item.snippet.title}">
                     `;
-                    topSongsDiv.appendChild(songDiv);
-                });
-            } catch (error) {
-                console.error('Error fetching top songs:', error);
-            }
+            topSongsDiv.appendChild(songDiv); // トップソング表示エリアにトップソングを追加する
+          });
+        } catch (error) { // エラーが発生した場合
+          console.error("Error fetching top songs:", error);
         }
-
-        fetchTopSongs();
+      }
+      fetchTopSongs(); // トップソングを取得する関数を実行する
     </script>
-</body>
+  </body>
 </html>
