@@ -4,27 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>繰り返し処理による最大数の判定ゲーム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             height: 100vh;
             margin: 0;
+            padding-top: 20px;
         }
         h1 {
+
+            position: fixed;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .container {
+            margin-top: 250px; /* h1と他の要素との間にスペースを作る　*/
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .start-button {
+            width: 420px;
+            height: 60px;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .challenge-counter {
+            font-size: 24px;
             margin-bottom: 20px;
+        }
+        .score-display {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .progress-line {
+            position: relative;
+            width: 60%;
+            height: 2px;
+            background-color: black;
+            margin-top: 40px;
+        }
+        .progress-indicator {
+            position: absolute;
+            top: -8px;
+            left: -5px;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            z-index: 10; /* インジケーターとラベルの前に配置する */
+            transition: left 0.3s ease;
+        }
+        .labels {
+            width: 60%;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px; /* インジケーターとラベルの間に余白を追加する */
+        }
+        .labels span {
+            position: relative;
+        }
+        .labels span::before {
+            content: '';
+            position: absolute;
+            top: -20px; /* ラベルの上に目盛りを表示する */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 10px;
+            background-color: black;
+            z-index: 1; /* インジケーターの後ろに配置する */
         }
         form {
             display: flex;
             justify-content: center;
+            gap: 5px;
         }
         input[type="button"] {
             width: 80px;
             height: 80px;
             font-size: 20px;
-            margin: 5px;
+        }
+        .final-result {
+            font-size: 24px;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -32,12 +102,137 @@
     <!-- 注意：クリック回数は１回だけです！それを忘れないこと -->
     <!-- 20秒のゲーム -->
     <h1>繰り返し処理による最大数の判定ゲーム</h1>
-    <form name="g_switch">
-        <input type="button" name="gs_1" value="SW1">
-        <input type="button" name="gs_2" value="SW2">
-        <input type="button" name="gs_3" value="SW3">
-        <input type="button" name="gs_4" value="SW4">
-        <input type="button" name="gs_5" value="SW5">
-    </form>
+    <div class="container">
+        <button class="btn btn-primary start-button" id="start-button" onclick="startChallenge()">スタート</button>
+        <div class="score-display" id="score-display">取得ポイント： 0 点</div>
+        <form name="g_switch">
+            <input type="button" class="btn btn-secondary" name="gs_1" value="   " onclick="buttonClick(0)">
+            <input type="button" class="btn btn-secondary" name="gs_2" value="   " onclick="buttonClick(1)">
+            <input type="button" class="btn btn-secondary" name="gs_3" value="   " onclick="buttonClick(2)">
+            <input type="button" class="btn btn-secondary" name="gs_4" value="   " onclick="buttonClick(3)">
+            <input type="button" class="btn btn-secondary" name="gs_5" value="   " onclick="buttonClick(4)">
+        </form>
+        <div class="progress-line" id="progress-line">
+            <div class="progress-indicator" id="progress-indicator"></div>
+        </div>
+        <div class="labels">
+            <span>0</span>
+            <span>10</span>
+            <span>20</span>
+        </div>
+        <div class="final-result" id="final-result"></div>
+    </div>
+    
+    <script type="text/javascript">
+        let interval;
+        let score = 0;
+        let canClick = true;
+        let currentMaxValue = 0;
+        let successClicks = 0;
+        let gameStarted = false;
+
+        function startChallenge() {
+            if (gameStarted) return;
+            gameStarted = true;
+            let counter = 20;
+            const startButton = document.getElementById("start-button");
+            const scoreElement = document.getElementById("score-display");
+            const progressIndicator = document.getElementById("progress-indicator");
+            const progressLine = document.getElementById("progress-line");
+            const finalResultElement = document.getElementById("final-result");
+            finalResultElement.innerHTML = ""; // 最終結果をクリア
+            startButton.innerHTML = `残りチャレンジ回数： ${counter} 回`;
+            scoreElement.innerHTML = `取得ポイント： ${score} 点`;
+            progressIndicator.style.left = `-5px`;
+
+            // Syntax: setInterval(function, milliseconds)
+            interval = setInterval(() => {
+                if (counter === 0) {
+                    clearInterval(interval);
+                    gameStarted = false;
+                    startButton.innerHTML = "スタート";
+                    showFinalResult();
+                    return;
+                }
+                counter--;
+                startButton.innerHTML = `残りチャレンジ回数： ${counter} 回`;
+                canClick = true;
+
+                // ボタンの色をリセットする
+                const buttons = document.g_switch.elements;
+                for (let button of buttons) {
+                    button.classList.remove("btn-success", "btn-danger");
+                    button.classList.add("btn-secondary");
+                }
+
+                // 1から100までの乱数を生成して各ボタンに割り当てる
+                const values = [];
+                while(values.length < 5) {
+                    const randomValue = Math.floor(Math.random() * 100) + 1;
+                    if (!values.includes(randomValue))
+                        values.push(randomValue);
+                }
+                for (let i = 0; i < 5; i++) {  
+                    document.g_switch.elements[i].value = values[i];
+                    document.g_switch.elements[i].innerText = values[i];
+                }
+
+                // 最大値を取得する
+                currentMaxValue = Math.max(...values);
+                console.log(`Current max value: ${currentMaxValue}`);
+            }, 1000);
+        }
+
+        function buttonClick(buttonIndex) {
+            if (!canClick) return;
+            canClick = false;
+
+            const clickedButton = document.g_switch.elements[buttonIndex];
+            const clickedValue = parseInt(clickedButton.value);
+            if (clickedValue === currentMaxValue) {
+                score += clickedValue;
+                successClicks++;
+                clickedButton.classList.remove("btn-secondary");
+                clickedButton.classList.add("btn-success");
+            } else {
+                score -= clickedValue;
+                clickedButton.classList.remove("btn-secondary");
+                clickedButton.classList.add("btn-danger");
+
+                // 正しいボタンを緑色に変更する
+                const buttons = document.g_switch.elements;
+                for (let button of buttons) {
+                    if (parseInt(button.value) === currentMaxValue) {
+                        button.classList.remove("btn-secondary");
+                        button.classList.add("btn-success");
+                        break;
+                    }
+                }
+            }
+            document.getElementById("score-display").innerHTML = `取得ポイント： ${score} 点`;
+
+            const progressIndicator = document.getElementById("progress-indicator");
+            const currentLeft = parseFloat(progressIndicator.style.left) || 0;
+            const progressLine = document.getElementById("progress-line");
+            const progressWidth = progressLine.offsetWidth;
+            const position = (successClicks / 21) * progressWidth;
+            progressIndicator.style.left = `${position}px`;
+        }
+
+        function showFinalResult() {
+            const finalResultElement = document.getElementById("final-result");
+            finalResultElement.innerHTML = `最終結果：取得ポイント：${score} 点`;
+            finalResultElement.scrollIntoView({ behavior: "smooth" }); 
+
+            const buttons = document.g_switch.elements;
+            const endText = ["【", "E", "N", "D", "】"];
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].value = endText[i];
+                buttons[i].innerText = endText[i];
+                buttons[i].classList.remove("btn-secondary", "btn-success", "btn-danger");
+                buttons[i].classList.add("btn-secondary");
+            }
+        }
+    </script>
 </body>
 </html>
