@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>課題2-1</title>
     <style>
+      /* テーブルのスタイルを定義する */
       table {
-        width: 50%;
-        margin: auto;
-        border-collapse: collapse;
+        width: 50%; /* テーブルの幅を50%に設定する */
+        margin: auto; /* テーブルを中央に配置する */
+        border-collapse: collapse; /* セルの境界線をまとめる */
       }
       th,
       td {
-        border: 1px solid black;
-        text-align: center;
-        padding: 8px;
+        border: 1px solid black; /* セルの境界線を黒に設定する */
+        text-align: center; /* テキストを中央揃えに設定する */
+        padding: 8px; /* パディングを8pxに設定する */
       }
     </style>
   </head>
@@ -22,47 +23,58 @@
   <body>
     <h2>課題 2-1</h2>
     <script type="text/javascript">
+      // ページが読み込まれたときにテーブルを生成する関数を実行する
       window.onload = function () {
         generateTable();
       };
 
       function generateTable() {
+        // 既存のテーブルが存在する場合は削除する
         const existingTable = document.getElementById("randomizeTable");
         if (existingTable) existingTable.remove();
 
+        // 新しいテーブルを生成する
         const table = document.createElement("table");
-        table.id = "randomizeTable";
-        table.border = "1";
+        table.id = "randomizeTable"; // テーブルIDを設定する
+        table.border = "1"; // テーブルの境界線を設定する
+
+        // テーブルのヘッダーを作成する
         const header = table.insertRow(-1);
         const headers = [
-          "No",
-          "8<sup>2</sup>の位",
-          "8<sup>1</sup>の位",
-          "8<sup>0</sup>の位",
+          "No", // 行番号
+          "8<sup>2</sup>の位", // ８の２乗の位
+          "8<sup>1</sup>の位", // ８の１乗の位
+          "8<sup>0</sup>の位", // ８の０乗の位
         ];
 
+        // 各ヘッダーセルを作成してテーブルに追加する
         headers.forEach((text) => {
-          const headerCell = document.createElement("th");
-          headerCell.innerHTML = text;
-          header.appendChild(headerCell);
+          const headerCell = document.createElement("th"); // th要素を生成する
+          headerCell.innerHTML = text; // ヘッダーセルのテキストを設定する
+          header.appendChild(headerCell); // ヘッダーセルをヘッダー行に追加する
         });
 
+        // テーブルのボディを作成する
         for (let i = 0; i <= 50; i++) {
-          const row = table.insertRow(-1);
-          const n = row.insertCell(-1);
-          const randomCell1 = row.insertCell(-1);
-          const randomCell2 = row.insertCell(-1);
-          const randomCell3 = row.insertCell(-1);
+          const row = table.insertRow(-1); // 新しい行をテーブルに追加する
+          const n = row.insertCell(-1); // 新しいセルを行に追加する
+          const randomCell1 = row.insertCell(-1); // ８の２乗の位のセルを行に追加する
+          const randomCell2 = row.insertCell(-1); // ８の１乗の位のセルを行に追加する
+          const randomCell3 = row.insertCell(-1); // ８の０乗の位のセルを行に追加する
 
-          const n1 = Math.floor(Math.random() * 8);
-          const n2 = Math.floor(Math.random() * 8);
-          const n3 = Math.floor(Math.random() * 8);
+          // ０から７までの乱数を生成する
+          const n1 = Math.floor(Math.random() * 8); // ８の２乗の位の乱数
+          const n2 = Math.floor(Math.random() * 8); // ８の１乗の位の乱数
+          const n3 = Math.floor(Math.random() * 8); // ８の０乗の位の乱数
 
+          // 各セルに値を設定する
           n.innerHTML = i;
           randomCell1.innerHTML = n1;
           randomCell2.innerHTML = n2;
           randomCell3.innerHTML = n3;
 
+          // ３つの値が同じ場合にセルのスタイルを変更する（赤文字、灰色背景）
+          // そうすることで、同じ値が３つ並んだ行を目立たせる
           if (n1 == n2 && n2 == n3) {
             randomCell1.style.color = "red";
             randomCell1.style.backgroundColor = "lightgray";
@@ -72,6 +84,7 @@
             randomCell3.style.backgroundColor = "lightgray";
           }
         }
+        // テーブルをドキュメントに追加する
         document.body.appendChild(table);
       }
     </script>
