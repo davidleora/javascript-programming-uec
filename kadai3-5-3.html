@@ -33,9 +33,17 @@
     <button onclick="window.close()">ページを閉じる</button> <!-- ページを閉じるボタン -->
 
     <script>
+      let lastColorIndex = -1; // 最後に選択された色のインデックスを記憶する変数
+
       // 背景色をランダムに変更する関数
       function changeBackgroundColor() {
         const colors = ["red", "green", "blue", "yellow", "purple"]; // 色の配列
+        let newColorIndex; // 新しい色のインデックスを記憶する変数
+
+        do {
+          newColorIndex = Math.floor(Math.random() * colors.length); // 色のインデックスをランダムに取得する
+        } while (newColorIndex === lastColorIndex); // 前回と同じ色が選択された場合は再選択する
+
         document.body.style.backgroundColor = 
           colors[Math.floor(Math.random() * colors.length)]; // 背景色をランダムに変更する
       }

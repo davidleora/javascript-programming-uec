@@ -53,7 +53,7 @@
         const select = document.getElementById("bookmarks"); // ドロップダウンメニューを取得する
         const url = select.value; // 選択されたオプションの値を取得する
         if (url) { // URLが選択されている場合
-          window.location.href = url; // 選択されたブックマークを開く
+          window.open(url, '_blank', `width=400,height=600,scrollbars=yes`); // 選択されたブックマークを新しいタブで開く
         }
       }
     </script>
