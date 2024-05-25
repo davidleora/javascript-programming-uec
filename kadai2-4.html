@@ -1,80 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>課題2-4</title>
+    <style>
+      /* 全体のフォントを指定する */
+      body {
+        font-family: Arial, sans-serif;
+      }
+      /* テーブルの幅と配置を設定する */
+      table {
+        width: 90%;
+        max-width: 600px;
+        margin: auto;
+        border-collapse: collapse;
+      }
+      /* テーブルのヘッダーとセルのスタイルを設定する */
+      th,
+      td {
+        border: 1px solid black;
+        padding: 0.5rem;
+        text-align: center;
+      }
+      /* ボタンのスタイルを設定する */
+      button {
+        padding: 0.5rem 1rem;
+      }
+      /* 見出しのスタイルを設定する */
+      h2 {
+        font-size: 32px;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
+    <!-- ページの見出し -->
     <h2>課題 2-4</h2>
 
-    <script type="text/javascript">
-      var windows = Array(5);
-      const urls = [
-        "https://www.netflix.com/jp/",
-        "https://www.yahoo.co.jp/",
-        "https://www.bing.com/",
-        "https://www.amazon.co.jp/",
-        "https://www.rakuten.co.jp/",
-      ];
+    <!-- URLを表示するためのテーブル -->
+    <table>
+      <tr>
+        <th>リンク番号</th>
+        <th>リンク先</th>
+        <th>開く</th>
+        <th>閉じる</th>
+      </tr>
 
-      function createNewWindow(url, n) {
-        windows[n] = window.open(
-          url,
-          `_blank${n}`,
-          `width=400,height=600,scrollbars=yes`
-        );
-      }
+      <!-- JavaScriptコード -->
+      <script type="text/javascript">
+        // ウィンドウを管理するための配列を宣言する
+        let windows = Array(5).fill(null);
 
-      function closeWindow(n) {
-        windows[n].close();
-      }
-      function generateTable() {
-        const existingTable = document.getElementById("linkTable");
-        if (existingTable) existingTable.remove();
+        // URL とその名前を格納する配列を宣言する
+        const urls = [
+          { name: "Netflix", url: "https://www.netflix.com/jp/" },
+          { name: "Yahoo Japan", url: "https://www.yahoo.co.jp/" },
+          { name: "Bing", url: "https://www.bing.com/" },
+          { name: "Amazon Japan", url: "https://www.amazon.co.jp/" },
+          { name: "Rakuten", url: "https://www.rakuten.co.jp/" },
+        ];
 
-        const table = document.createElement("table");
-        table.id = "linkTable";
-        table.border = "1";
-        const header = table.insertRow(-1);
-        const headers = ["リンク番号", "リンク先", "開く", "閉じる"];
+        // 新しいウィンドウを開く関数
+        function createNewWindow(url, n) {
+          // すでにウィンドウが開かれている場合は閉じる
+          if (windows[n]) {
+            windows[n].close();
+          }
 
-        headers.forEach((text) => {
-          const headerCell = document.createElement("th");
-          headerCell.innerHTML = text;
-          header.appendChild(headerCell);
-        });
-
-        for (let i = 0; i < 5; i++) {
-          const row = table.insertRow(-1);
-          const linkNumCell = row.insertCell(-1);
-          linkNumCell.innerHTML = i + 1;
-
-          const linkCell = row.insertCell(-1);
-          const link = document.createElement("text");
-          link.href = urls[i];
-          link.innerHTML = urls[i];
-          linkCell.appendChild(link);
-
-          var openCell = row.insertCell(-1);
-          var openButton = document.createElement("button");
-          openButton.innerHTML = "開く";
-          openButton.onclick = function () {
-            createNewWindow(urls[i], i);
-          };
-          openCell.appendChild(openButton);
-
-          var closeButtonCell = row.insertCell(-1);
-          var closeButton = document.createElement("button");
-          closeButton.innerHTML = "閉じる";
-          closeButton.onclick = function () {
-            closeWindow(i);
-          };
-          closeButtonCell.appendChild(closeButton);
+          // 新しいウィンドウを開く
+          windows[n] = window.open(
+            url,
+            `_blank${n}`, // ウィンドウ名をユニークに設定する
+            `width=400,height=600,scrollbars=yes` // ウィンドウのサイズとスクロールバーを設定する
+          );
         }
-        document.body.appendChild(table);
-      }
-      window.onload = generateTable;
-    </script>
+
+        // ウィンドウを閉じる関数
+        function closeWindow(n) {
+          if (windows[n]) {
+            windows[n].close(); // ウィンドウを閉じる
+            windows[n] = null; // 配列の街頭要素を null に設定する
+          }
+        }
+
+        // URL 配列をループしてテーブルの行を作成する
+        for (let i = 0; i < urls.length; i++) {
+          document.write(`
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${urls[i].name}</td>
+                        <td><button onclick="createNewWindow('${
+                          urls[i].url
+                        }', ${i})">開く</button></td>
+                        <td><button onclick="closeWindow(${i})">閉じる</button></td>
+                    </tr>
+                `);
+        }
+      </script>
+    </table>
   </body>
 </html>
