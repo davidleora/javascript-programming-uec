@@ -74,6 +74,10 @@
     </div>
 
     <script type="text/javascript">
+        // ページが読み込み時にスクロール一を最上部に設定する
+        window.onload = function() {
+            window,scrollTo(0, 0);
+        };
         // 指定された画像にスクロールする関数
         function scrollToElement(elementId) {
             let element = document.getElementById(elementId); // 指定されたIDの要素を取得する
