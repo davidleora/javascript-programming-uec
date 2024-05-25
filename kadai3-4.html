@@ -16,6 +16,11 @@
         }
         form {
             margin-bottom: 20px; /* 下側の余白を設定する */
+            display: inline-block;
+            text-align: left;
+        }
+        .radio-container {
+          margin-bottom: 20px; /* 下側の余白を設定する */
         }
         input[type="radio"] {
             margin: 10px; /* 上下左右の余白を設定する */
@@ -28,6 +33,7 @@
             border: none; /* 枠線を設定しない */
             border-radius: 4px; /* 角を丸める */
             cursor: pointer; /* カーソルをポインターに設定する */
+            margin-top: 40px; /* 上側の余白を設定する */
         }
         input[type="button"]:hover {
             background-color: #0056b3; /* ホバー時の背景色を設定する */
@@ -56,11 +62,12 @@
     <p>文字色を選択してください。</p>
     <!-- ラジオボタンメニュー -->
     <form name="bkmkmenu">
-      <input type="radio" name="bkmks" value="red" />赤<br />
-      <input type="radio" name="bkmks" value="blue" />青<br />
-      <input type="radio" name="bkmks" value="yellow" />黄<br />
-      <input type="radio" name="bkmks" value="black" />黒<br />
-      <input type="radio" name="bkmks" value="green" />緑<br />
+      <div class="radio-container">
+        <input type="radio" name="bkmks" value="red" />赤<br />
+        <input type="radio" name="bkmks" value="blue" />青<br />
+        <input type="radio" name="bkmks" value="yellow" />黄<br />
+        <input type="radio" name="bkmks" value="black" />黒<br />
+        <input type="radio" name="bkmks" value="green" />緑<br />
       <!-- 文字色を変更するボタン -->
       <input type="button" value="文字色変更" onclick="pmove ()" />
     </form>
